@@ -10,6 +10,7 @@
     E-mail: <input id="email" type="text" name="email"><br></br>
     Password : <input id="pw" type="password" name="password"><br></br>
     <button id="lgn" type="submit" name="login">Login</button>
+
     <br></br>
 </form>
 <script>
@@ -32,6 +33,7 @@
     document.getElementById("reg").onclick = function () {
         location.href = "register.php";
     };
+
 </script>
 <?php
 session_start();
@@ -44,9 +46,10 @@ if (isset($_POST['login'])) {
         $sql = "select * from user where email ='" . $email . "'AND password = '" . $password . "'limit 1 ";
         $result = mysqli_query($con, $sql);
         if (mysqli_num_rows($result) == 1) {
-            $name = "select name from user where email ='" . $email . "'AND password = '" . $password . "'limit 1 ";
-            $name = mysqli_fetch_row(mysqli_query($con, $name))[0];
-            print"Welcome " . $name;
+            $nameq = "select name from user where email ='" . $email . "'AND password = '" . $password . "'limit 1 ";
+            $name = mysqli_fetch_row(mysqli_query($con, $nameq))[0];
+            $_SESSION['name'] = $name;
+            header('location:welcome.php');
         } else {
             echo "Email or password are incorrect";
         }
