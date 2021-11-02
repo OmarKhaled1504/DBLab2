@@ -61,7 +61,8 @@ if (isset($_POST['register'])) {
         $name = "select name from user where email ='" . $email . "'AND password = '" . $password . "'limit 1 ";
         if (mysqli_num_rows(mysqli_query($con, $name)) == 1) {
             $uname = mysqli_fetch_row(mysqli_query($con, $name))[0];
-            echo "Welcome " . $uname;
+            $_SESSION['name'] = $uname;
+            header('location:welcome.php');
         }
     }
 
